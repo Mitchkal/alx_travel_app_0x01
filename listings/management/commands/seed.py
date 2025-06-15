@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-seed script to 
+seed script to
 seed Listings table
 """
 import uuid
 from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
-from ../../listings.models import Listing
+from listings.models import Listing
 from django.db import IntegrityError, DatabaseError
 import json
 
@@ -72,7 +72,6 @@ class Command(BaseCommand):
                     property_id=uuid.uuid4(),
                     host=host,
                     defaults={
-                        "host": host,
                         "name": listing_data["name"],
                         "description": listing_data["description"],
                         "location": listing_data["location"],
@@ -97,7 +96,7 @@ class Command(BaseCommand):
                 )
             except Exception as e:
                 self.stdout.write(
-                    self.style.Error(
+                    self.style.ERROR(
                         f'Unexpected Error creating listing {listing_data["name"]}: {e}'
                     )
                 )
